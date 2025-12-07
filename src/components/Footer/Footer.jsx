@@ -10,13 +10,13 @@ const Footer = () => {
     // Desestructurar las columnas que tienen enlaces para mapear
     const { servicios, empresa } = FOOTER_DATA;
     // Desestructurar la info principal y contacto
-    const { principal, contacto,legales } = FOOTER_DATA;
+    const { principal, contacto, legales } = FOOTER_DATA;
 
     return (
         // Contenedor principal del footer
         <footer className="bg-gray-900 text-white pt-10 pb-4 shadow-2xl">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
+
                 {/* SECCIÓN PRINCIPAL: Múltiples Columnas */}
                 <div className={`
                     /* Responsividad del Grid */
@@ -27,7 +27,7 @@ const Footer = () => {
                     border-b border-gray-700 
                     pb-8 sm:pb-10                     /* Padding inferior responsivo */
                 `}>
-                    
+
                     {/* COLUMNA 1: Información Principal y Redes Sociales */}
                     <div className="col-span-2 md:col-span-1"> {/* Permite que esta columna ocupe 2 espacios en móviles para mejor legibilidad */}
                         <h3 className="text-xl sm:text-2xl font-bold mb-3">{principal.titulo}</h3>
@@ -40,7 +40,7 @@ const Footer = () => {
                     <div>
                         <h4 className="text-base sm:text-lg font-semibold mb-4">{servicios.titulo}</h4>
                         <ul className="space-y-2">
-                            {servicios.enlaces.map(link => (
+                            {servicios && servicios.enlaces && Array.isArray(servicios.enlaces) && servicios.enlaces.map(link => (
                                 <li key={link.id}>
                                     <a href={link.url} className="text-sm text-gray-400 hover:text-white transition-colors">
                                         {link.texto}
@@ -54,7 +54,7 @@ const Footer = () => {
                     <div>
                         <h4 className="text-base sm:text-lg font-semibold mb-4">{empresa.titulo}</h4>
                         <ul className="space-y-2">
-                            {empresa.enlaces.map(link => (
+                            {empresa && empresa.enlaces && Array.isArray(empresa.enlaces) && empresa.enlaces.map(link => (
                                 <li key={link.id}>
                                     <a href={link.url} className="text-sm text-gray-400 hover:text-white transition-colors">
                                         {link.texto}
@@ -68,10 +68,10 @@ const Footer = () => {
                     <div>
                         <h4 className="text-base sm:text-lg font-semibold mb-4">{contacto.titulo}</h4>
                         <ul className="space-y-2 mb-4">
-                            {contacto.datos.map((dato, index) => (
+                            {contacto && contacto.datos && Array.isArray(contacto.datos) && contacto.datos.map((dato, index) => (
                                 <li key={index} className="flex items-center text-sm text-gray-400 hover:text-white transition-colors">
                                     {/* Ajuste: Aseguramos que el contenedor del dato sea clickable/visible */}
-                                    <a href={dato.url || '#'} className="ml-0 hover:text-white transition-colors"> 
+                                    <a href={dato.url || '#'} className="ml-0 hover:text-white transition-colors">
                                         {/* Si usas íconos, irían aquí */}
                                         {dato.valor}
                                     </a>
@@ -101,7 +101,7 @@ const Footer = () => {
                     <div className="space-x-4 order-1 sm:order-2">
                         {/* Se mantiene el tamaño de texto pequeño, ideal para esta sección */}
                         <ul>
-                            {legales.enlaces.map(link => (
+                            {legales && legales.enlaces && Array.isArray(legales.enlaces) && legales.enlaces.map(link => (
                                 <li key={link.id}>
                                     <a href={link.url} className="hover:text-white transition-colors">
                                         {link.texto}

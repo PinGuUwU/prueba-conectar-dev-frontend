@@ -107,6 +107,15 @@ const Freelancers = () => {
 
     // --- Lógica de Filtrado ---
     const { premiumData, generalData, totalResults } = useMemo(() => {
+        // 0. Validación de Seguridad
+        if (!Array.isArray(freelancersDB)) {
+            return {
+                premiumData: [],
+                generalData: [],
+                totalResults: 0
+            };
+        }
+
         // 1. Filtrado
         let filtered = freelancersDB.filter(item => {
             const term = searchTerm.toLowerCase();

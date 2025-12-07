@@ -87,11 +87,15 @@ const Perfil = () => {
           // Filtrar:
           // 1. No es el mismo usuario
           // 2. "Cualquier perfil" -> Incluimos todos (premium o no) y sin filtro estricto de skills
-          const relatedFreelancers = allFreelancers.filter(f => f._id !== id);
+          if (Array.isArray(allFreelancers)) {
+            const relatedFreelancers = allFreelancers.filter(f => f._id !== id);
 
-          // Mezclar y tomar hasta 6
-          const shuffled = relatedFreelancers.sort(() => 0.5 - Math.random());
-          setSuggested(shuffled.slice(0, 8));
+            // Mezclar y tomar hasta 6
+            const shuffled = relatedFreelancers.sort(() => 0.5 - Math.random());
+            setSuggested(shuffled.slice(0, 8));
+          } else {
+            setSuggested([]);
+          }
 
         } catch (sugErr) {
           console.warn("Error cargando sugeridos:", sugErr);
@@ -212,7 +216,7 @@ const Perfil = () => {
   };
 
   // --- RENDER HELPERS ---
-  const filteredReviews = starFilter === 0
+  const filteredReviews = (starFilter === 0 || !Array.isArray(reviews))
     ? reviews
     : reviews.filter(r => r.puntuacion === starFilter);
 

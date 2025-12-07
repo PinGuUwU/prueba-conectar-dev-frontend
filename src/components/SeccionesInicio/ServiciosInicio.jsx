@@ -47,7 +47,7 @@ const ServiciosInicio = () => {
             grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 
             mb-12
           `}>
-            {cards_data.map((card) => (
+            {cards_data && Array.isArray(cards_data) && cards_data.map((card) => (
               // Nota: Asegúrate que ServicioCard maneje bien el contraste, o envuélvelo en un div blanco si es transparente.
               // Asumiendo que ServicioCard es flexible, aquí se verá bien sobre oscuro.
               <Link

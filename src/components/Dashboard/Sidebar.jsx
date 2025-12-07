@@ -18,8 +18,8 @@ const Sidebar = ({ isOpen, onClose }) => {
     { path: '/dashboard', label: 'Perfil', icon: <User size={20} />, end: true },
     { path: '/dashboard/configuracion', label: 'Configuración', icon: <Settings size={20} /> },
     { path: '/dashboard/opiniones', label: 'Opiniones', icon: <MessageSquare size={20} /> },
-   
-    
+
+
     // Condicional: Condicionales basados en el rol real
     ...(isFreelancer ? [
       { path: '/dashboard/servicios', label: 'Servicios', icon: <Layers size={20} /> },
@@ -68,7 +68,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
         {/* Navegación */}
         <nav className="flex-1 py-6 px-3 space-y-1 overflow-y-auto">
-          {menuItems.map((item) => (
+          {menuItems && Array.isArray(menuItems) && menuItems.map((item) => (
             <NavLink
               key={item.path}
               to={item.path}

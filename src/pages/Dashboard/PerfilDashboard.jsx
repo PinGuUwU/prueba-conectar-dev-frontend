@@ -107,7 +107,7 @@ const PerfilDashboard = () => {
         // Excluye las que ya están seleccionadas
         .filter(
           (tech) =>
-            !technologies
+            !technologies || !Array.isArray(technologies) || !technologies
               .map((t) => t.toUpperCase())
               .includes(tech.toUpperCase())
         )
@@ -146,7 +146,7 @@ const PerfilDashboard = () => {
 
   // Lógica para borrar tecnologías
   const handleRemoveTech = (techToRemove) => {
-    setTechnologies(technologies.filter((t) => t !== techToRemove)); // 👈 USAR setTechnologies
+    setTechnologies(prev => Array.isArray(prev) ? prev.filter((t) => t !== techToRemove) : []); // 👈 USAR setTechnologies
   };
 
   // Función para guardar las skills en el backend(tecnologias)
@@ -334,7 +334,7 @@ const PerfilDashboard = () => {
                     Agrega hasta 5 tecnologías a tu perfil.
                   </p>
                 ) : (
-                  technologies.map((tech, index) => (
+                  technologies && Array.isArray(technologies) && technologies.map((tech, index) => (
                     <span
                       key={index}
                       className="px-3 py-1.5 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium flex items-center gap-2 group hover:bg-blue-200 transition"
@@ -373,7 +373,7 @@ const PerfilDashboard = () => {
                 {/* Sugerencias de búsqueda */}
                 {filteredTechs.length > 0 && (
                   <div className="absolute top-full left-0 right-0 z-10 bg-white border border-slate-300 rounded-lg mt-1 shadow-lg max-h-60 overflow-y-auto">
-                    {filteredTechs.map((tech) => (
+                    {filteredTechs && Array.isArray(filteredTechs) && filteredTechs.map((tech) => (
                       <div
                         key={tech}
                         onClick={() => handleSelectTech(tech)}

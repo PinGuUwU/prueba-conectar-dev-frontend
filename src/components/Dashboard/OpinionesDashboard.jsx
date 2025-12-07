@@ -39,7 +39,7 @@ const OpinionesDashboard = () => {
       });
 
       // Actualizar el estado local eliminando la opinión
-      setOpinionesRealizadas(prev => prev.filter(op => op._id !== opinionToDelete._id));
+      setOpinionesRealizadas(prev => Array.isArray(prev) ? prev.filter(op => op._id !== opinionToDelete._id) : []);
 
       // Cerrar modal
       setShowDeleteModal(false);
@@ -123,7 +123,7 @@ const OpinionesDashboard = () => {
               <p className="text-slate-500">Aún no has recibido opiniones</p>
             </div>
           ) : (
-            opinionesRecibidas.map((opinion) => (
+            opinionesRecibidas && Array.isArray(opinionesRecibidas) && opinionesRecibidas.map((opinion) => (
               <div key={opinion._id} className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
                 <div className="flex items-start justify-between mb-3">
                   <div>
@@ -151,7 +151,7 @@ const OpinionesDashboard = () => {
               <p className="text-slate-500">No has realizado opiniones aún</p>
             </div>
           ) : (
-            opinionesRealizadas.map((opinion) => (
+            opinionesRealizadas && Array.isArray(opinionesRealizadas) && opinionesRealizadas.map((opinion) => (
               <div key={opinion._id} className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
                 <div className="flex items-start justify-between mb-3">
                   <div>
