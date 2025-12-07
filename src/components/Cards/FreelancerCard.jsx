@@ -36,7 +36,7 @@ const FreelancerCard = ({ data }) => {
 
                 if (servicios && servicios.length > 0) {
                     // 1. Calcular Promedio de Precios
-                    const precios = servicios.map(s => s.precio).filter(p => p !== undefined && p !== null);
+                    const precios = servicios && Array.isArray(servicios) ? servicios.map(s => s.precio).filter(p => p !== undefined && p !== null) : [];
                     if (precios.length > 0) {
                         const sumaTotal = precios.reduce((acc, curr) => acc + curr, 0);
                         const promedio = sumaTotal / precios.length;
@@ -48,11 +48,13 @@ const FreelancerCard = ({ data }) => {
 
                     // 2. Extraer Etiquetas (Tipos de Servicio)
                     const tiposUnicos = new Set();
-                    servicios.forEach(servicio => {
-                        if (servicio.tipoServicio && servicio.tipoServicio.nombre) {
-                            tiposUnicos.add(servicio.tipoServicio.nombre);
-                        }
-                    });
+                    if (Array.isArray(servicios)) {
+                        servicios.forEach(servicio => {
+                            if (servicio.tipoServicio && servicio.tipoServicio.nombre) {
+                                tiposUnicos.add(servicio.tipoServicio.nombre);
+                            }
+                        });
+                    }
                     setEtiquetasServicios(Array.from(tiposUnicos));
                 } else {
                     // Fallback: Datos antiguos
@@ -124,7 +126,7 @@ const FreelancerCard = ({ data }) => {
                     {loadingServicios ? (
                         <span className="text-xs text-slate-400 animate-pulse">Cargando...</span>
                     ) : etiquetasServicios.length > 0 ? (
-                        etiquetasServicios.slice(0, 3).map((srv, idx) => (
+                        etiquetasServicios && Array.isArray(etiquetasServicios) && etiquetasServicios.slice(0, 3).map((srv, idx) => (
                             <NavLink
                                 key={idx}
                                 to={`/perfil/${data._id}`}

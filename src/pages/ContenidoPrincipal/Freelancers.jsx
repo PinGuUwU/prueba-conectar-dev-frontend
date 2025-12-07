@@ -84,16 +84,18 @@ const Freelancers = () => {
         const especificas = new Set();
 
         // Usamos el catálogo completo de tipos de servicios
-        tiposServiciosDB.forEach(tipo => {
-            if (tipo.categoria_principal) {
-                principales.add(tipo.categoria_principal);
+        if (Array.isArray(tiposServiciosDB)) {
+            tiposServiciosDB.forEach(tipo => {
+                if (tipo.categoria_principal) {
+                    principales.add(tipo.categoria_principal);
 
-                // Si hay una categoría principal seleccionada, filtramos las específicas
-                if (filterCategoriaPrincipal !== 'Todas' && tipo.categoria_principal === filterCategoriaPrincipal) {
-                    if (tipo.categoria) especificas.add(tipo.categoria);
+                    // Si hay una categoría principal seleccionada, filtramos las específicas
+                    if (filterCategoriaPrincipal !== 'Todas' && tipo.categoria_principal === filterCategoriaPrincipal) {
+                        if (tipo.categoria) especificas.add(tipo.categoria);
+                    }
                 }
-            }
-        });
+            });
+        }
 
         return {
             categoriasPrincipales: ["Todas", ...Array.from(principales).sort()],
@@ -232,7 +234,7 @@ const Freelancers = () => {
                             <div>
                                 <h3 className="text-xs font-bold text-slate-500 uppercase mb-3">Categoría Principal</h3>
                                 <div className="space-y-2 max-h-48 overflow-y-auto custom-scrollbar">
-                                    {categoriasPrincipales.map(cat => (
+                                    {categoriasPrincipales && Array.isArray(categoriasPrincipales) && categoriasPrincipales.map(cat => (
                                         <label key={cat} className="flex items-center gap-3 cursor-pointer group p-1 rounded hover:bg-slate-50">
                                             <div className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${filterCategoriaPrincipal === cat ? 'bg-blue-600 border-blue-600' : 'border-slate-300 bg-white'}`}>
                                                 {filterCategoriaPrincipal === cat && <Check size={10} className="text-white" />}
@@ -262,7 +264,7 @@ const Freelancers = () => {
                                 <div className="animate-in fade-in slide-in-from-top-2 duration-300">
                                     <h3 className="text-xs font-bold text-slate-500 uppercase mb-3">Subcategoría</h3>
                                     <div className="space-y-2 max-h-48 overflow-y-auto custom-scrollbar pl-2 border-l-2 border-slate-100">
-                                        {categoriasEspecificas.map(subCat => (
+                                        {categoriasEspecificas && Array.isArray(categoriasEspecificas) && categoriasEspecificas.map(subCat => (
                                             <label key={subCat} className="flex items-center gap-3 cursor-pointer group p-1 rounded hover:bg-slate-50">
                                                 <div className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${filterCategoriaEspecifica === subCat ? 'bg-blue-600 border-blue-600' : 'border-slate-300 bg-white'}`}>
                                                     {filterCategoriaEspecifica === subCat && <Check size={10} className="text-white" />}
@@ -383,7 +385,7 @@ const Freelancers = () => {
                                 <>
                                     <h2 className="text-xl font-bold text-slate-800 mb-4">Catálogo General</h2>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
-                                        {paginatedGeneralData.map((freelancer) => (
+                                        {paginatedGeneralData && Array.isArray(paginatedGeneralData) && paginatedGeneralData.map((freelancer) => (
                                             <FreelancerCard key={freelancer._id} data={freelancer} />
                                         ))}
                                     </div>
