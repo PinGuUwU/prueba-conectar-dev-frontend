@@ -5,7 +5,7 @@ import axios from 'axios';
 import { AuthContext } from './AuthContext';
 
 // Definir la URL base de tu backend
-const BASE_URL = import.meta.env.VITE_BACKEND_API_URL
+const BASE_URL = import.meta.env.VITE_BACKEND_API_URL || import.meta.env.BACKEND_API_URL
 
 // --- Funciones Auxiliares (las dejamos aquí para la lógica interna) ---
 const decodeToken = (jwtToken) => {
@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }) => {
         try {
             // Asumiendo que esta es tu ruta backend definida anteriormente
             const response = await axios.put(`${BASE_URL}/api/users/upgrade-premium`);
-            
+
             // Actualizamos el estado local del usuario con la respuesta (que trae isPremium: true)
             setUser(response.data);
             return { success: true };

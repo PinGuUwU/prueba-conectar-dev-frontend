@@ -11,7 +11,7 @@ const FreelancerCard = ({ user, showPremiumBadge }) => {
     useEffect(() => {
         const fetchServices = async () => {
             try {
-                const BASE_URL = import.meta.env.VITE_BACKEND_API_URL;
+                const BASE_URL = import.meta.env.VITE_BACKEND_API_URL || import.meta.env.BACKEND_API_URL;
                 const res = await axios.get(`${BASE_URL}/api/servicios/freelancer/${user._id}`);
                 const servicios = res.data;
                 const tiposUnicos = new Set();
@@ -164,7 +164,7 @@ const FreelancersInicio = ({ data, title, subtitle, showPremiumBadge = true }) =
         if (data) return;
         const fetchPremium = async () => {
             try {
-                const BASE_URL = import.meta.env.VITE_BACKEND_API_URL;
+                const BASE_URL = import.meta.env.VITE_BACKEND_API_URL || import.meta.env.BACKEND_API_URL;
                 const res = await axios.get(`${BASE_URL}/api/users/freelancers/premium`);
                 setFreelancers(res.data);
                 setLoading(false);

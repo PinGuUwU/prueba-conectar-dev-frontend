@@ -38,7 +38,7 @@ const Freelancers = () => {
     useEffect(() => {
         const fetchTypes = async () => {
             try {
-                const BASE_URL = import.meta.env.VITE_BACKEND_API_URL;
+                const BASE_URL = import.meta.env.VITE_BACKEND_API_URL || import.meta.env.BACKEND_API_URL;
                 const res = await axios.get(`${BASE_URL}/api/types`);
                 setTiposServiciosDB(res.data);
             } catch (err) {
@@ -55,7 +55,7 @@ const Freelancers = () => {
         const fetchFreelancers = async () => {
             setLoading(true);
             try {
-                const BASE_URL = import.meta.env.VITE_BACKEND_API_URL;
+                const BASE_URL = import.meta.env.VITE_BACKEND_API_URL || import.meta.env.BACKEND_API_URL;
                 let url = `${BASE_URL}/api/users/freelancers`;
 
                 // Lógica de Endpoints

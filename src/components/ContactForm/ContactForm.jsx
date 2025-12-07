@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { Send, CheckCircle, AlertCircle, Loader } from 'lucide-react';
 
 // ⚠️ REEMPLAZA ESTOS VALORES CON TUS CREDENCIALES DE EMAILJS
-const YOUR_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
-const YOUR_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-const YOUR_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+const YOUR_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || import.meta.env.EMAILJS_SERVICE_ID
+const YOUR_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || import.meta.env.EMAILJS_TEMPLATE_ID
+const YOUR_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || import.meta.env.EMAILJS_PUBLIC_KEY
 
 /**
  * Componente de formulario de contacto
