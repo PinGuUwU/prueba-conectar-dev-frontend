@@ -97,7 +97,7 @@ const FreelancerCard = ({ user, showPremiumBadge }) => {
                         <span className="text-xs text-slate-400 animate-pulse">Cargando...</span>
                     ) : (
                         <>
-                            {services.slice(0, 2).map((service, index) => (
+                            {services && Array.isArray(services) && services.slice(0, 2).map((service, index) => (
                                 <button
                                     key={index}
                                     onClick={handleProfileClick}
@@ -257,7 +257,7 @@ const FreelancersInicio = ({ data, title, subtitle, showPremiumBadge = true }) =
                         className="flex transition-transform duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
                         style={{ transform: `translate3d(${-activeIndex * 100}%, 0, 0)` }}
                     >
-                        {freelancers.map((user) => (
+                        {freelancers && Array.isArray(freelancers) && freelancers.map((user) => (
                             <FreelancerCard key={user._id} user={user} showPremiumBadge={showPremiumBadge} />
                         ))}
                     </div>
