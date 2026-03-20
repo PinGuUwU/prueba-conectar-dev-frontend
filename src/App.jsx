@@ -1,24 +1,42 @@
-import { useState } from 'react'
-import NavBar from './components/NavBar'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Rutas from './routes/Rutas'
-import { ToastProvider } from '@heroui/react'
-import Footer from './components/Footer'
+import Footer from "./components/Footer/Footer"
+import NavBar from "./components/NavBar/NavBar"
+import ScrollToTop from "./components/ScrollToTop"
+import Rutas from "./routes/Rutas"
+import { useLocation } from "react-router";
 
-function App() {
-    const [plan, setPlan] = useState("17.14")
-    //Simulo la carrera, en el futuro debo hacer el fetch de plan en el dashboard y  de ahi pasar todo
+
+const App = () => {
+
+    //Variable para cambiar de vista de visitante a vista usuario
+    const isLoggedIn = true
+    // true = usuario
+    // false = visitante
+
+   // Obtenemos la ruta actual
+    const location = useLocation();
+    
+    // Verificamos si estamos dentro del dashboard
+    // Si la ruta empieza con "/dashboard", es true.
+    const isDashboard = location.pathname.startsWith('/dashboard');
 
     return (
-        <BrowserRouter>
-            <div className='flex'>
-                <NavBar setPlan={setPlan} plan={plan} />
-                <main className='w-full'>
-                    <Rutas plan={plan} />
+        <div className="flex flex-col min-h-screen">
+            {/* Solo mostramos NavBar si NO es dashboard */}
+            {!isDashboard && <NavBar isLoggedIn={isLoggedIn}/>}
+            <ScrollToTop />
+
+           <main className={isDashboard ? "" : "flex-1"}> 
+                {/* Si es dashboard, quitamos flex-1 del main principal para que no choque con el layout interno */}
+                <Rutas/>
+            </main>
+
+            {/* Solo mostramos Footer si NO es dashboard */}
+            {!isDashboard && (
+                <footer>
                     <Footer />
-                </main>
-            </div>
-        </BrowserRouter>
+                </footer>
+            )}
+        </div>
     )
 }
 
