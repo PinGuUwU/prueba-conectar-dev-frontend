@@ -1,16 +1,19 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
+import { HeroUIProvider, ToastProvider } from '@heroui/react'
+import { ThemeProvider as NextThemesProvider } from "next-themes"
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import App from './App.jsx'
-import { BrowserRouter } from 'react-router'
-import { AuthProvider } from './context/AuthProvider.jsx'
+import './main.css'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
+  <HeroUIProvider>
+    <ToastProvider placement="bottom-right" />
+    <NextThemesProvider attribute="class" defaultTheme='light' themes={['light', 'dark', 'girlie', 'pastel']} enableSystem={false}>
+      {/* Esta etiqueta main es la clave para que pinte todo el fondo y cambie el color del texto base */}
+      <main className="text-foreground bg-background min-h-screen">
         <App />
-      </AuthProvider>
-    </BrowserRouter>
-  </StrictMode>,
+      </main>
+    </NextThemesProvider>
+  </HeroUIProvider>
 )
